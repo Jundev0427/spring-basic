@@ -1,14 +1,25 @@
 package hello.core.member;
 
+import hello.core.AppConfig;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MemberServiceTest {
+
+    MemberService memberService;
+
+    @BeforeEach
+    void beforeEach(){
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        this.memberService = ac.getBean("memberService", MemberService.class);
+    }
 
     @Test
     void join(){
         //given
-        MemberServiceImpl memberService = new MemberServiceImpl();
         Member member = new Member(1L, "memberA", Grade.VIP);
 
         //when
